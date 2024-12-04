@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 api/keys/jwtRS256.key
+.env
 
 # Editor directories and files
 .vscode/*

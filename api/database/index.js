@@ -1,9 +1,12 @@
+require("dotenv").config(); // Charger les variables d'environnement depuis .env
+
 const mongoose = require("mongoose");
 
+// Utilisez la variable d'environnement pour la chaîne de connexion
+const dbURI = process.env.MONGODB_URI;
+
 mongoose
-  .connect(
-    "mongodb+srv://jean:123@cluster0.eiw9d.mongodb.net/ronrons?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(dbURI)
   .then(() => {
     console.log("CONNEXION DB OK !");
   })
