@@ -5,10 +5,13 @@ const router = require("express").Router();
 
 router.post("/", async (req, res) => {
   const { name, email, password } = req.body;
+
+  // Nouveau champ `status` avec une valeur par défaut
   const newUser = new UserModel({
     name,
     email,
     password: await bcrypt.hash(password, 8),
+    status: req.body.status || "0", // Prend la valeur fournie ou "0" par défaut
   });
 
   try {

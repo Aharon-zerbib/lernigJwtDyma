@@ -11,7 +11,8 @@ function Profile() {
         <h3 className="mb-20">Page de profil</h3>
         <ul>
           <li>Nom : {user.name}</li>
-          <li>Email : {user.email} </li>
+          <li>Email : {user.email}</li>
+          <li>Statut : {user.status}</li> {/* Affiche la valeur brute */}
         </ul>
       </div>
     </div>

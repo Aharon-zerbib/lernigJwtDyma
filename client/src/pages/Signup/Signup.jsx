@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 function Signup() {
   const navigate = useNavigate();
 
+  // Mise à jour du schéma de validation
   const validationSchema = yup.object({
     name: yup
       .string()
@@ -21,12 +22,17 @@ function Signup() {
       .string()
       .required("Il faut préciser votre mot de passe")
       .min(6, "Mot de passe trop court"),
+    status: yup
+      .number()
+      .required("Statut par défaut requis")
+      .oneOf([0], "Le statut par défaut doit être 0"),
   });
 
   const initialValues = {
     name: "",
     email: "",
     password: "",
+    status: 0, // Valeur par défaut
   };
 
   const {
@@ -43,7 +49,7 @@ function Signup() {
   const submit = handleSubmit(async (user) => {
     try {
       clearErrors();
-      await createUser(user);
+      await createUser(user); // Assurez-vous que le backend accepte "status"
       navigate("/signin");
     } catch (message) {
       setError("generic", { type: "generic", message });
@@ -72,6 +78,19 @@ function Signup() {
           <input type="password" name="password" {...register("password")} />
           {errors.password && (
             <p className="form-error">{errors.password.message}</p>
+          )}
+        </div>
+        <div className="mb-10 d-flex flex-column">
+          <label htmlFor="status">Statut</label>
+          <input
+            type="number"
+            name="status"
+            {...register("status")}
+            defaultValue={0}
+            readOnly // Rendre le champ non modifiable depuis le frontend
+          />
+          {errors.status && (
+            <p className="form-error">{errors.status.message}</p>
           )}
         </div>
         {errors.generic && (
